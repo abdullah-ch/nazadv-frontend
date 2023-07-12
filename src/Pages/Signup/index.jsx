@@ -1,115 +1,89 @@
-import React, { useReducer, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signUpUser } from '../../Services/auth';
 import { useAlert } from 'react-alert';
-import { ACTIONS, signupReducer } from '../../Reducers/signupReducer';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import SpinnerButton from '../../Components/Button';
+import { SignUpSchema } from '../../Validations';
 
-const initialState = {
-  userDetails: '',
-  loading: false,
-  error: null,
+const initialValues = {
+  email: '',
+  password: '',
+  name: '',
 };
-export const Signup = () => {
-  const [state, dispatcher] = useReducer(signupReducer, initialState);
-  const { loading } = state;
 
+export const Signup = () => {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const alert = useAlert();
 
-  const [credentials, setCredentials] = useState({
-    email: null,
-    password: null,
-    name: null,
-  });
-
-  const handleCredentials = (e) => {
-    const { value, name } = e.target;
-    if (name === 'email') {
-      setCredentials((prevState) => {
-        return { ...prevState, email: value };
-      });
-    } else if (name === 'password') {
-      setCredentials((prevState) => {
-        return { ...prevState, password: value };
-      });
-    } else if (name === 'name') {
-      setCredentials((prevState) => {
-        return { ...prevState, name: value };
-      });
-    }
-  };
-
-  const signUp = async () => {
+  const handleSignUp = async (values) => {
     try {
-      dispatcher({
-        type: ACTIONS.CALL_API,
-      });
-      const { data } = await signUpUser(credentials);
-      dispatcher({
-        type: ACTIONS.SUCCESS,
-        data: data,
-      });
+      setLoading(true);
+
+      const payload = {
+        ...values,
+        joiningDate: new Date(),
+      };
+      setLoading(true);
+      await signUpUser(payload);
+
       navigate('/login');
     } catch (err) {
-      dispatcher({
-        type: ACTIONS.ERROR,
-        data: err,
-      });
       err?.response?.data?.errors?.forEach((errObj) => {
         alert.error(errObj.message);
       });
+    } finally {
+      setLoading(false);
     }
-  };
-
-  const handleSignUp = () => {
-    if (!credentials.email) {
-      return alert.error('Please enter an Email !');
-    }
-    if (!credentials.password) {
-      return alert.error('Please enter a Password!');
-    }
-    if (!credentials.name) {
-      return alert.error('Please enter a Name!');
-    }
-
-    signUp();
   };
 
   return (
-    <div className="flex justify-center items-center flex-col w-full h-screen gap-3">
-      <input
-        onChange={handleCredentials}
-        className="border rounded-md border-solid border-black p-1"
-        placeholder="name"
-        name="name"
-      />
-      <input
-        onChange={handleCredentials}
-        className="border rounded-md border-solid border-black p-1"
-        placeholder="email"
-        name="email"
-      />
-      <input
-        onChange={handleCredentials}
-        className="border rounded-md border-solid border-black p-1"
-        placeholder="password"
-        type="password"
-        name="password"
-      />
+    <>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={SignUpSchema}
+        onSubmit={handleSignUp}
+      >
+        <Form className="flex justify-center items-center flex-col w-full h-screen gap-3">
+          <Field
+            type="text"
+            name="name"
+            className="border rounded-md border-solid border-black p-1"
+            placeholder="name"
+          />
+          <ErrorMessage name="name" component="span" className="error" />
 
-      <SpinnerButton
-        handleClick={handleSignUp}
-        label={'Submit'}
-        isLoading={loading}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      />
-      <div>
-        Already have an account ?{' '}
-        <a href="login" className="text-blue-600">
-          Login Here !
-        </a>
-      </div>
-    </div>
+          <Field
+            type="text"
+            name="email"
+            className="border rounded-md border-solid border-black p-1"
+            placeholder="email"
+          />
+          <ErrorMessage name="email" component="span" className="error" />
+
+          <Field
+            type="password"
+            name="password"
+            className="border rounded-md border-solid border-black p-1"
+            placeholder="password"
+          />
+          <ErrorMessage name="password" component="span" className="error" />
+
+          <SpinnerButton
+            type="submit"
+            label={'Submit'}
+            isLoading={loading}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          />
+          <div>
+            Already have an account?{' '}
+            <a href="/login" className="text-blue-600">
+              Login Here!
+            </a>
+          </div>
+        </Form>
+      </Formik>
+    </>
   );
 };
