@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectproductList,
@@ -6,13 +6,31 @@ import {
 } from '../../../Store/Slices/productListSlice';
 import { useAlert } from 'react-alert';
 import { deleteProduct } from '../../../Services/product';
+import { AddOrUpdateProductModal } from '../../Common/AddOrUpdateProductModal';
 
 const ProductItem = ({ product }) => {
   const { name, categoryId: category, price, description, _id: id } = product;
 
+  const [modalIsOpen, setIsOpen] = useState(false);
+
   const products = useSelector(selectproductList);
   const dispatch = useDispatch();
   const alert = useAlert();
+
+  function openEditProductModal() {
+    setIsOpen(true);
+  }
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  const editableData = {
+    name,
+    price,
+    description,
+    id,
+    category: category._id,
+  };
 
   const handleDelete = async () => {
     try {
@@ -29,6 +47,7 @@ const ProductItem = ({ product }) => {
 
   const handleEdit = () => {
     // Handle edit logic here
+    openEditProductModal();
   };
 
   return (
@@ -51,6 +70,13 @@ const ProductItem = ({ product }) => {
           Delete
         </button>
       </div>
+      <AddOrUpdateProductModal
+        closeModal={closeModal}
+        openModal={openEditProductModal}
+        modalIsOpen={modalIsOpen}
+        editableData={editableData}
+        isEditMode
+      />
     </div>
   );
 };
