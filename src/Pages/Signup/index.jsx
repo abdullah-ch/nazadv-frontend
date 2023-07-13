@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { signUpUser } from "../../Services/auth";
-import { useAlert } from "react-alert";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import SpinnerButton from "../../Components/Button";
-import { SignUpSchema } from "../../Validations";
-import { useTranslation } from "react-i18next";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { signUpUser } from '../../Services/auth';
+import { useAlert } from 'react-alert';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { SignUpSchema } from '../../Validations';
+import { useTranslation } from 'react-i18next';
+import SpinnerButton from '../../Components/Common/Button';
 
 const initialValues = {
-  email: "",
-  password: "",
-  name: "",
+  email: '',
+  password: '',
+  name: '',
 };
 
 export const Signup = () => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation('common');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const alert = useAlert();
@@ -30,7 +30,7 @@ export const Signup = () => {
       setLoading(true);
       await signUpUser(payload);
 
-      navigate("/login");
+      navigate('/login');
     } catch (err) {
       err?.response?.data?.errors?.forEach((errObj) => {
         alert.error(errObj.message);
@@ -74,7 +74,7 @@ export const Signup = () => {
 
           <SpinnerButton
             type="submit"
-            label={"Submit"}
+            label={'Submit'}
             isLoading={loading}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           />

@@ -53,15 +53,6 @@ export const getCurrentUser = () => {
     }
   };
 };
-// export const logOutUser = () => {
-//   return async (dispatch) => {
-//     try {
-//     } catch (error) {
-//       console.log("error ==> getCurrentUser ==>", error);
-//       alert(error?.response?.data?.errors[0]);
-//     }
-//   };
-// };
 
 export const selectUser = (state) => state.user.value;
 export const selectUserLoginState = (state) => state.user.isLoggedIn;
