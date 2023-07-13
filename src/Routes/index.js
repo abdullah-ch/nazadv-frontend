@@ -3,6 +3,7 @@ import { Home } from "../Pages/Home";
 import Login from "../Pages/Login";
 import { Signup } from "../Pages/Signup";
 import Protected from "../utils/Protected";
+import ProtectRoutesFromLoggedInUser from "../utils/ProtectRoutesFromLoggedInUser";
 export default function Router() {
   let element = useRoutes([
     ...[
@@ -12,7 +13,12 @@ export default function Router() {
         children: PROTECTED_ROUTES,
       },
     ],
-    ...PUBLIC_ROUTES,
+    ...[
+      {
+        element: <ProtectRoutesFromLoggedInUser />,
+        children: PUBLIC_ROUTES,
+      },
+    ],
   ]);
   return element;
 }
