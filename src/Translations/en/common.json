@@ -1,0 +1,9 @@
+{
+    "account": {
+        "alreadyHaveAccount": "Already have an account?",
+        "loginHere": "Login Here!",
+        "signUpHere": "Sign Up Here!",
+        "noAccount": "Don't have an account?"
+
+    }
+}

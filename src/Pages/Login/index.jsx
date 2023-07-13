@@ -1,22 +1,25 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 
-import { logInUser } from '../../Services/auth';
-import { setLogIn } from '../../Store/Slices/userSlice';
-import { useAlert } from 'react-alert';
-import SpinnerButton from '../../Components/Button';
-import { LoginSchema } from '../../Validations';
+import { logInUser } from "../../Services/auth";
+import { setLogIn } from "../../Store/Slices/userSlice";
+import { useAlert } from "react-alert";
+import SpinnerButton from "../../Components/Button";
+import { LoginSchema } from "../../Validations";
+import { useTranslation } from "react-i18next";
 
 const initialValues = {
-  email: '',
-  password: '',
+  email: "",
+  password: "",
 };
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation("common");
+
   const alert = useAlert();
   const [loading, setLoading] = useState(false);
 
@@ -27,10 +30,10 @@ const Login = () => {
       const { data } = await logInUser(values);
 
       // Set access token and dispatch the login action
-      localStorage.setItem('accessToken', data.accessToken);
+      localStorage.setItem("accessToken", data.accessToken);
       dispatch(setLogIn(true));
 
-      navigate('/');
+      navigate("/");
     } catch (err) {
       err?.response?.data?.errors?.forEach((errObj) => {
         alert.error(errObj.message);
@@ -65,15 +68,15 @@ const Login = () => {
 
         <SpinnerButton
           type="submit"
-          label={'Submit'}
+          label={"Submit"}
           isLoading={loading}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         />
 
         <div>
-          Don't have an account?{' '}
+          {t(`account.noAccount`)}
           <a href="/signup" className="text-blue-600">
-            Sign Up Here!
+            {t(`account.signUpHere`)}
           </a>
         </div>
       </Form>
