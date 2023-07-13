@@ -12,6 +12,10 @@ import {
 import { addProductSchema } from '../../Validations';
 import { createProduct } from '../../Services/product';
 import styles from './index.module.css';
+import {
+  selectproductList,
+  setProductList,
+} from '../../Store/Slices/productListSlice';
 const initialValues = {
   name: '',
   description: '',
@@ -21,6 +25,7 @@ const initialValues = {
 const AddProduct = () => {
   const dispatch = useDispatch();
   const categories = useSelector(selectCategories);
+  const products = useSelector(selectproductList);
   const [loading, setLoading] = useState(false);
   const alert = useAlert();
 
@@ -53,8 +58,12 @@ const AddProduct = () => {
         ...rest,
         categoryId: category,
       };
-      const response = await createProduct(payload);
-      console.log('response ===> ', response);
+      const {
+        data: { data: newlyAddedProduct },
+      } = await createProduct(payload);
+      const productListSnapShot = structuredClone(products ?? []);
+      productListSnapShot.unshift(newlyAddedProduct);
+      dispatch(setProductList(productListSnapShot));
       closeModal();
       alert.success('Product Added Successfully !!');
     } catch (err) {
