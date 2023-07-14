@@ -16,6 +16,7 @@ import {
 import SpinnerButton from "../Button";
 import styles from "./index.module.css";
 import useValidations from "../../../useValidations";
+import { useTranslation } from "react-i18next";
 
 export const AddOrUpdateProductModal = ({
   isEditMode = false,
@@ -26,6 +27,7 @@ export const AddOrUpdateProductModal = ({
 }) => {
   const dispatch = useDispatch();
   const { addProductSchema } = useValidations();
+  const { t } = useTranslation("common");
   const categories = useSelector(selectCategories);
   const products = useSelector(selectproductList);
   const [loading, setLoading] = useState(false);
@@ -127,7 +129,7 @@ export const AddOrUpdateProductModal = ({
         </button>
 
         <h1 className="m-2">
-          {isEditMode ? "Edit a Product" : "Add a Product"}
+          {isEditMode ? t(`word.editProduct`) : t(`word.addProduct`)}
         </h1>
         <Formik
           validationSchema={addProductSchema}
@@ -145,7 +147,7 @@ export const AddOrUpdateProductModal = ({
                   type="text"
                   name="name"
                   className="border rounded-md border-solid border-black p-1"
-                  placeholder="name"
+                  placeholder={t(`word.name`)}
                 />
                 <ErrorMessage
                   name="name"
@@ -157,7 +159,7 @@ export const AddOrUpdateProductModal = ({
                   type="text"
                   name="price"
                   className="border rounded-md border-solid border-black p-1"
-                  placeholder="price"
+                  placeholder={t(`word.price`)}
                 />
                 <ErrorMessage
                   name="price"
@@ -169,7 +171,7 @@ export const AddOrUpdateProductModal = ({
                   as="textarea"
                   name="description"
                   className="border rounded-md border-solid border-black p-1 h-32"
-                  placeholder="description"
+                  placeholder={t(`word.description`)}
                 />
                 <ErrorMessage
                   name="description"
@@ -185,7 +187,7 @@ export const AddOrUpdateProductModal = ({
                   className="border rounded-md border-solid border-black p-1"
                 >
                   <option disabled value="">
-                    Select a category
+                    {t(`word.selectCategory`)}
                   </option>
                   {categories.map((category) => (
                     <option key={category._id} value={category._id}>
@@ -202,7 +204,7 @@ export const AddOrUpdateProductModal = ({
 
                 <SpinnerButton
                   type="submit"
-                  label={"Submit"}
+                  label={t("word.Submit")}
                   isLoading={loading}
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 />

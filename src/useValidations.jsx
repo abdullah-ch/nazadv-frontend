@@ -29,7 +29,7 @@ const useValidations = () => {
     name: Yup.string()
       .min(2, t("validationMessages.tooShort"))
       .max(50, t("validationMessages.tooLong"))
-      .required("Product Name is required"),
+      .required(t("validationMessages.productNameRequired")),
 
     description: Yup.string()
       .max(1000, t("validationMessages.tooLong"))

@@ -5,11 +5,17 @@
         "signUpHere": "التسجيل هنا!",
         "noAccount": "ليس لديك حساب؟"
     },
-    "word": {
+    "word" : {
         "email": "البريد الإلكتروني",
         "Submit": "إرسال",
         "password": "كلمة المرور",
-        "name": "الاسم"
+        "name": "الاسم",
+        "editProduct": "تحرير المنتج",
+        "addProduct": "إضافة منتج",
+        "price": "السعر",
+        "description": "الوصف",
+        "category": "الفئة",
+        "selectCategory": "اختر فئة"
     },
     "validationMessages": {
         "tooShort": "قصير جدًا!",

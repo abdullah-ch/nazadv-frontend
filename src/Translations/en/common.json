@@ -9,7 +9,14 @@
         "email": "email",
         "Submit": "Submit",
         "password": "password",
-        "name": "name"
+        "name": "name",
+        "editProduct": "Edit the Product",
+        "addProduct": "Add a Product",
+        "price": "price",
+        "description": "description",
+        "category": "category",
+        "selectCategory": "Select a category"
+
     },
     "validationMessages": {
         "tooShort": "Too Short!",
