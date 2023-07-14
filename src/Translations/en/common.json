@@ -4,6 +4,23 @@
         "loginHere": "Login Here!",
         "signUpHere": "Sign Up Here!",
         "noAccount": "Don't have an account?"
-
+    },
+    "word" : {
+        "email": "email",
+        "Submit": "Submit",
+        "password": "password",
+        "name": "name"
+    },
+    "validationMessages": {
+        "tooShort": "Too Short!",
+        "tooLong": "Too Long!",
+        "nameRequired": "Name is required",
+        "emailRequired": "Email is required",
+        "passwordIsRequired": "Password is required",
+        "passwordTooShort": "Password is too short - should be 6 chars minimum",
+        "productNameRequired": "Product Name is required",
+        "descriptionIsRequired": "Description is required",
+        "priceIsRequired": "Price is required",
+        "categoryIsRequired": "Category is required"
     }
 }

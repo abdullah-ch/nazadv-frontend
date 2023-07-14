@@ -1,27 +1,32 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 
-import { logInUser } from '../../Services/auth';
-import { setLogIn } from '../../Store/Slices/userSlice';
-import { useAlert } from 'react-alert';
-import SpinnerButton from '../../Components/Common/Button';
-import { LoginSchema } from '../../Validations';
-import { useTranslation } from 'react-i18next';
+import { logInUser } from "../../Services/auth";
+import { setLogIn } from "../../Store/Slices/userSlice";
+import { useAlert } from "react-alert";
+import SpinnerButton from "../../Components/Common/Button";
+import useValidations from "../../useValidations";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "../../Components/Common/LanguageSwitcher";
 
 const initialValues = {
-  email: '',
-  password: '',
+  email: "",
+  password: "",
 };
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { t } = useTranslation('common');
+  const { LoginSchema } = useValidations();
+  const { t } = useTranslation("common");
 
   const alert = useAlert();
   const [loading, setLoading] = useState(false);
+  const routeToSignUp = () => {
+    navigate("/signup");
+  };
 
   const handleLogin = async (values) => {
     try {
@@ -30,10 +35,10 @@ const Login = () => {
       const { data } = await logInUser(values);
 
       // Set access token and dispatch the login action
-      localStorage.setItem('accessToken', data.accessToken);
+      localStorage.setItem("accessToken", data.accessToken);
       dispatch(setLogIn(true));
 
-      navigate('/');
+      navigate("/");
     } catch (err) {
       err?.response?.data?.errors?.forEach((errObj) => {
         alert.error(errObj.message);
@@ -44,43 +49,44 @@ const Login = () => {
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={LoginSchema}
-      onSubmit={handleLogin}
-    >
-      <Form className="flex justify-center items-center flex-col w-full h-screen gap-3">
-        <Field
-          type="text"
-          name="email"
-          className="border rounded-md border-solid border-black p-1"
-          placeholder="email"
-        />
-        <ErrorMessage name="email" component="span" className="error" />
+    <>
+      <LanguageSwitcher />
+      <Formik
+        initialValues={initialValues}
+        validationSchema={LoginSchema}
+        onSubmit={handleLogin}
+      >
+        <Form className="flex justify-center items-center flex-col w-full h-screen gap-3">
+          <Field
+            type="text"
+            name="email"
+            className="border rounded-md border-solid border-black p-1"
+            placeholder={t(`word.email`)}
+          />
+          <ErrorMessage name="email" component="span" className="error" />
 
-        <Field
-          type="password"
-          name="password"
-          className="border rounded-md border-solid border-black p-1"
-          placeholder="password"
-        />
-        <ErrorMessage name="password" component="span" className="error" />
+          <Field
+            type="password"
+            name="password"
+            className="border rounded-md border-solid border-black p-1"
+            placeholder={t(`word.password`)}
+          />
+          <ErrorMessage name="password" component="span" className="error" />
 
-        <SpinnerButton
-          type="submit"
-          label={'Submit'}
-          isLoading={loading}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        />
+          <SpinnerButton
+            type="submit"
+            label={t(`word.Submit`)}
+            isLoading={loading}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          />
 
-        <div>
-          {t(`account.noAccount`)}
-          <a href="/signup" className="text-blue-600">
-            {t(`account.signUpHere`)}
-          </a>
-        </div>
-      </Form>
-    </Formik>
+          <div onClick={routeToSignUp}>
+            {t(`account.noAccount`)}
+            <span className="text-blue-600">{t(`account.signUpHere`)}</span>
+          </div>
+        </Form>
+      </Formik>
+    </>
   );
 };
 

@@ -1,5 +1,26 @@
 {
     "account": {
-        "already": "هل لديك حساب بالفعل؟"
+        "alreadyHaveAccount": "هل لديك حساب بالفعل؟",
+        "loginHere": "تسجيل الدخول هنا!",
+        "signUpHere": "التسجيل هنا!",
+        "noAccount": "ليس لديك حساب؟"
+    },
+    "word": {
+        "email": "البريد الإلكتروني",
+        "Submit": "إرسال",
+        "password": "كلمة المرور",
+        "name": "الاسم"
+    },
+    "validationMessages": {
+        "tooShort": "قصير جدًا!",
+        "tooLong": "طويل جدًا!",
+        "nameRequired": "الاسم مطلوب",
+        "emailRequired": "البريد الإلكتروني مطلوب",
+        "passwordIsRequired": "كلمة المرور مطلوبة",
+        "passwordTooShort": "كلمة المرور قصيرة جدًا - يجب أن تتكون من 6 أحرف على الأقل",
+        "productNameRequired": "اسم المنتج مطلوب",
+        "descriptionIsRequired": "الوصف مطلوب",
+        "priceIsRequired": "السعر مطلوب",
+        "categoryIsRequired": "الفئة مطلوبة"
     }
 }

@@ -1,23 +1,28 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { signUpUser } from '../../Services/auth';
-import { useAlert } from 'react-alert';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { SignUpSchema } from '../../Validations';
-import { useTranslation } from 'react-i18next';
-import SpinnerButton from '../../Components/Common/Button';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { signUpUser } from "../../Services/auth";
+import { useAlert } from "react-alert";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useTranslation } from "react-i18next";
+import SpinnerButton from "../../Components/Common/Button";
+import useValidations from "../../useValidations";
 
 const initialValues = {
-  email: '',
-  password: '',
-  name: '',
+  email: "",
+  password: "",
+  name: "",
 };
 
 export const Signup = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
+  const { SignUpSchema } = useValidations();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const alert = useAlert();
+
+  const routeToLogin = () => {
+    navigate("/login");
+  };
 
   const handleSignUp = async (values) => {
     try {
@@ -30,7 +35,7 @@ export const Signup = () => {
       setLoading(true);
       await signUpUser(payload);
 
-      navigate('/login');
+      navigate("/login");
     } catch (err) {
       err?.response?.data?.errors?.forEach((errObj) => {
         alert.error(errObj.message);
@@ -52,7 +57,7 @@ export const Signup = () => {
             type="text"
             name="name"
             className="border rounded-md border-solid border-black p-1"
-            placeholder="name"
+            placeholder={t(`word.name`)}
           />
           <ErrorMessage name="name" component="span" className="error" />
 
@@ -60,7 +65,7 @@ export const Signup = () => {
             type="text"
             name="email"
             className="border rounded-md border-solid border-black p-1"
-            placeholder="email"
+            placeholder={t(`word.email`)}
           />
           <ErrorMessage name="email" component="span" className="error" />
 
@@ -68,21 +73,21 @@ export const Signup = () => {
             type="password"
             name="password"
             className="border rounded-md border-solid border-black p-1"
-            placeholder="password"
+            placeholder={t(`word.password`)}
           />
           <ErrorMessage name="password" component="span" className="error" />
 
           <SpinnerButton
             type="submit"
-            label={'Submit'}
+            label={t(`word.Submit`)}
             isLoading={loading}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           />
           <div>
             {t(`account.alreadyHaveAccount`)}
-            <a href="/login" className="text-blue-600">
+            <span onClick={routeToLogin} className="text-blue-600">
               {t(`account.loginHere`)}
-            </a>
+            </span>
           </div>
         </Form>
       </Formik>

@@ -1,21 +1,21 @@
-import { ErrorMessage, Field, Form, Formik } from 'formik';
-import Modal from 'react-modal';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useAlert } from 'react-alert';
-import { selectCategories } from '../../../Store/Slices/categorySlice';
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import Modal from "react-modal";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useAlert } from "react-alert";
+import { selectCategories } from "../../../Store/Slices/categorySlice";
 import {
   selectproductList,
   setProductList,
-} from '../../../Store/Slices/productListSlice';
+} from "../../../Store/Slices/productListSlice";
 import {
   createProduct,
   getProducts,
   updateProduct,
-} from '../../../Services/product';
-import SpinnerButton from '../Button';
-import styles from './index.module.css';
-import { addProductSchema } from '../../../Validations';
+} from "../../../Services/product";
+import SpinnerButton from "../Button";
+import styles from "./index.module.css";
+import useValidations from "../../../useValidations";
 
 export const AddOrUpdateProductModal = ({
   isEditMode = false,
@@ -25,16 +25,17 @@ export const AddOrUpdateProductModal = ({
   closeModal,
 }) => {
   const dispatch = useDispatch();
+  const { addProductSchema } = useValidations();
   const categories = useSelector(selectCategories);
   const products = useSelector(selectproductList);
   const [loading, setLoading] = useState(false);
   const alert = useAlert();
 
   const initialValues = {
-    name: '',
-    description: '',
-    price: '',
-    category: '',
+    name: "",
+    description: "",
+    price: "",
+    category: "",
   };
 
   const addProduct = async (values) => {
@@ -52,7 +53,7 @@ export const AddOrUpdateProductModal = ({
       productListSnapShot.unshift(newlyAddedProduct);
       dispatch(setProductList(productListSnapShot));
       closeModal();
-      alert.success('Product Added Successfully !!');
+      alert.success("Product Added Successfully !!");
     } catch (err) {
       err?.response?.data?.errors?.forEach((errObj) => {
         alert.error(errObj.message);
@@ -79,9 +80,8 @@ export const AddOrUpdateProductModal = ({
       dispatch(setProductList(productList));
 
       closeModal();
-      alert.success('Product Edited Successfully !!');
+      alert.success("Product Edited Successfully !!");
     } catch (err) {
-      console.log('err ===<> ', err);
       err?.response?.data?.errors?.forEach((errObj) => {
         alert.error(errObj.message);
       });
@@ -127,7 +127,7 @@ export const AddOrUpdateProductModal = ({
         </button>
 
         <h1 className="m-2">
-          {isEditMode ? 'Edit a Product' : 'Add a Product'}
+          {isEditMode ? "Edit a Product" : "Add a Product"}
         </h1>
         <Formik
           validationSchema={addProductSchema}
@@ -202,7 +202,7 @@ export const AddOrUpdateProductModal = ({
 
                 <SpinnerButton
                   type="submit"
-                  label={'Submit'}
+                  label={"Submit"}
                   isLoading={loading}
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 />
