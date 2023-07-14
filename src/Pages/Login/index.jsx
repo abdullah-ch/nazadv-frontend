@@ -1,31 +1,31 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 
-import { logInUser } from "../../Services/auth";
-import { setLogIn } from "../../Store/Slices/userSlice";
-import { useAlert } from "react-alert";
-import SpinnerButton from "../../Components/Common/Button";
-import useValidations from "../../useValidations";
-import { useTranslation } from "react-i18next";
-import LanguageSwitcher from "../../Components/Common/LanguageSwitcher";
+import { logInUser } from '../../Services/auth';
+import { setLogIn } from '../../Store/Slices/userSlice';
+import { useAlert } from 'react-alert';
+import SpinnerButton from '../../Components/Common/Button';
+import useValidations from '../../useValidations';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from '../../Components/Common/LanguageSwitcher';
 
 const initialValues = {
-  email: "",
-  password: "",
+  email: '',
+  password: '',
 };
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { LoginSchema } = useValidations();
-  const { t } = useTranslation("common");
+  const { t } = useTranslation('common');
 
   const alert = useAlert();
   const [loading, setLoading] = useState(false);
   const routeToSignUp = () => {
-    navigate("/signup");
+    navigate('/signup');
   };
 
   const handleLogin = async (values) => {
@@ -35,10 +35,10 @@ const Login = () => {
       const { data } = await logInUser(values);
 
       // Set access token and dispatch the login action
-      localStorage.setItem("accessToken", data.accessToken);
+      localStorage.setItem('accessToken', data.accessToken);
       dispatch(setLogIn(true));
 
-      navigate("/");
+      navigate('/');
     } catch (err) {
       err?.response?.data?.errors?.forEach((errObj) => {
         alert.error(errObj.message);
@@ -63,7 +63,11 @@ const Login = () => {
             className="border rounded-md border-solid border-black p-1"
             placeholder={t(`word.email`)}
           />
-          <ErrorMessage name="email" component="span" className="error" />
+          <ErrorMessage
+            name="email"
+            component="span"
+            className="text-red-500 text-sm mt-2"
+          />
 
           <Field
             type="password"
@@ -71,7 +75,11 @@ const Login = () => {
             className="border rounded-md border-solid border-black p-1"
             placeholder={t(`word.password`)}
           />
-          <ErrorMessage name="password" component="span" className="error" />
+          <ErrorMessage
+            name="password"
+            component="span"
+            className="text-red-500 text-sm mt-2"
+          />
 
           <SpinnerButton
             type="submit"
