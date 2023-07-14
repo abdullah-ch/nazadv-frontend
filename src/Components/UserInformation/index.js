@@ -1,12 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUser, selectUser } from '../../Store/Slices/userSlice';
-import { formatDate } from './../../utils/index';
+import { capitalizeFirstChar, formatDate } from './../../utils/index';
+import { useTranslation } from 'react-i18next';
 
 export const UserInformation = () => {
   const dispatch = useDispatch();
   const apiRef = useRef(true);
   const userInfo = useSelector(selectUser);
+  const { t } = useTranslation('common');
 
   useEffect(() => {
     if (apiRef.current) {
@@ -16,13 +18,25 @@ export const UserInformation = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const capitalizeTranslatedString = (key) => {
+    const translatedString = t(key);
+    return capitalizeFirstChar(translatedString);
+  };
+
   return (
     <>
       {userInfo ? (
         <div className="flex justify-center items-center flex-col">
-          <h1>Name: {userInfo?.name}</h1>
-          <h1>Email: {userInfo?.email}</h1>
-          <h1> Joining Date: {formatDate(userInfo?.joiningDate)}</h1>
+          <h1>
+            {capitalizeTranslatedString('word.name')}: {userInfo?.name}
+          </h1>
+          <h1>
+            {capitalizeTranslatedString('word.email')}: {userInfo?.email}
+          </h1>
+          <h1>
+            {capitalizeTranslatedString('word.joiningDate')}:
+            {formatDate(userInfo?.joiningDate)}
+          </h1>
         </div>
       ) : null}
     </>

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useAlert } from 'react-alert';
 import ClipLoader from 'react-spinners/ClipLoader';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import styles from './index.module.css';
+// import styles from './index.module.css';
 import { getProducts } from '../../Services/product';
 import {
   selectproductList,

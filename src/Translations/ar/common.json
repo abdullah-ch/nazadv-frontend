@@ -15,7 +15,8 @@
         "price": "السعر",
         "description": "الوصف",
         "category": "الفئة",
-        "selectCategory": "اختر فئة"
+        "selectCategory": "اختر فئة",
+        "joiningDate": "تاريخ الانضمام"
     },
     "validationMessages": {
         "tooShort": "قصير جدًا!",

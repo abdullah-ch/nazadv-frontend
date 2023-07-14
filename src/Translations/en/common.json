@@ -15,7 +15,9 @@
         "price": "price",
         "description": "description",
         "category": "category",
-        "selectCategory": "Select a category"
+        "selectCategory": "Select a category",
+        "joiningDate": "joining date"
+
 
     },
     "validationMessages": {

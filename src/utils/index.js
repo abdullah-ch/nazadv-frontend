@@ -22,3 +22,7 @@ export function formatDate(dateString) {
 
   return formattedDateTime;
 }
+
+export const capitalizeFirstChar = (str) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
