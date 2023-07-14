@@ -1,80 +1,46 @@
-# Retrying Failed APIs with Stale Access Token in Axios
+# Frontend Code README
 
-This Branch offers :
+This README file provides information on the frontend code for the project. It includes details about the technology stack, features, and instructions on how to run the code.
 
-* **Automatic handling**: The interceptor logic automatically handles expired access tokens without the need for manual intervention from the user.
+## Technology Stack
 
-* **Improved user experience**: The retry mechanism ensures that API requests do not fail due to expired access tokens, which can improve the user experience and reduce frustration.
+The frontend code is built using the following technologies:
 
-* **Simplified codebase**: The retry mechanism can simplify the codebase by reducing the number of error-handling branches and making it easier to manage access tokens.
+- React: A JavaScript library for building user interfaces.
+- Formik: A library for building forms in React.
+- Tailwind CSS: A utility-first CSS framework for styling user interfaces.
+- Yup: A JavaScript schema validation library for form validation.
 
-# Getting Started with Create React App
+## Features
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The frontend code includes the following features:
 
-## Available Scripts
+1. Retrying Failed APIs with Stale Access Token in Axios: The code handles failed API requests by automatically retrying them with a stale access token, ensuring a smoother user experience.
+2. Create, Update, Delete, and Get Product List: The code provides functionality for creating, updating, deleting, and retrieving a list of products.
+3. Multilingual Feature (Arabic and English): The code supports a multilingual feature, allowing the user to switch between Arabic and English languages.
 
-In the project directory, you can run:
+## How to Run
 
-### `npm start`
+To run the frontend code, follow these steps:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Install dependencies: Open a terminal window and navigate to the project directory. Run the command `npm install` to install all the necessary dependencies.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2. Set up environment variables: Create a `.env` file in the root directory of the project and add the following line:
 
-### `npm test`
+   ```
+   REACT_APP_API=http://localhost:5000/
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   This environment variable sets the API endpoint to `http://localhost:5000/`. Adjust the URL as needed if your API is hosted elsewhere.
 
-### `npm run build`
+3. Start the development server: Run the command `npm start` to start the development server. This will compile the code and open the application in your default browser.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   The development server provides hot reloading, meaning any changes you make to the code will automatically reflect in the browser without the need to restart the server.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. Access the application: Once the development server is running, you can access the application by visiting the provided URL in your browser. You can interact with the features of the application from there.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Additional Information
 
-### `npm run eject`
+If you encounter any issues or need further assistance, please refer to the documentation or reach out to the project team for support.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Thank you for using our application!
